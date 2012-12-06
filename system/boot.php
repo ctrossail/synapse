@@ -23,6 +23,8 @@
 header("Charset: UTF-8");
 
 
+//to know if we are in cli
+define('ISCLI', PHP_SAPI === 'cli');
 
 
 if (!empty($_GET['path']))
