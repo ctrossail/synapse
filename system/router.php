@@ -4,27 +4,29 @@ include_once(CONFIG . "router.config.php");
 
 
 
-if (empty($_GET['path']))
+if ( empty($_GET['path']) )
 {
 	//$_GET['path'] = ROUTE_DEFAULT;
 
-	
 
-	if (empty($_COOKIE['language']))
+
+	if ( empty($_COOKIE['language']) )
 	{
-		if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+		if ( !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) )
 		{
 			$_LG_choice = explode(",", LANGUAGE_AVAILABLE);
 
 			$lgnew = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-			if (in_array($lgnew, $_LG_choice))
+			if ( in_array($lgnew, $_LG_choice) )
 			{
 				$_COOKIE['language'] = $lgnew;
-			} else
+			}
+			else
 			{
 				$_COOKIE['language'] = "en";
 			}
-		} else
+		}
+		else
 		{
 			$_COOKIE['language'] = "en";
 		}
@@ -49,7 +51,7 @@ class Router
 
 		$nbparam = count($tab);
 
-		if ($nbparam < 2)
+		if ( $nbparam < 2 )
 		{
 			trigger_error("url invalid can't find controller & action", E_USER_ERROR);
 		}
@@ -60,29 +62,26 @@ class Router
 
 		$lang_available = explode(",", LANGUAGE_AVAILABLE);
 
-		if (!in_array($_GET['lg'], $lang_available))
+		if ( !in_array($_GET['lg'], $lang_available) )
 		{
 			exit;
 		}
 
 		unset($tab[0]);
 
-
 		$_GET['url'] = implode("/", $tab);
 
-		if (empty($tab[2]))
+		if ( empty($tab[2]) )
 		{
 			$this->routes['action'] = "index";
-		} else
+		}
+		else
 		{
 			$this->routes['action'] = $tab[2];
 		}
 
 
-
 		/*		 * ************* */
-
-
 		/*
 
 		  if ( empty ($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$controller][$action]) || $GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$controller][$action] != 1)
@@ -107,22 +106,23 @@ class Router
 
 
 
-		if ($nbparam > 3)
+		if ( $nbparam > 3 )
 		{
-			for ($i = 3; $i < $nbparam; $i++)
+			for ( $i = 3; $i < $nbparam; $i++ )
 			{
 				$param[] = $tab[$i];
 
 
-				if (strstr($tab[$i], ":"))
+				if ( strstr($tab[$i], ":") )
 				{
 					$tb = explode(":", $tab[$i]);
 					$nb_profondeur = count($tb);
 
-					if ($nb_profondeur == 2)
+					if ( $nb_profondeur == 2 )
 					{
 						$_GET[$tb[0]] = $tb[1];
-					} elseif ($nb_profondeur == 3)
+					}
+					elseif ( $nb_profondeur == 3 )
 					{
 						$_GET[$tb[0]][$tb[1]] = $tb[2];
 					}
@@ -130,11 +130,12 @@ class Router
 			}
 
 
-			if (!empty($param))
+			if ( !empty($param) )
 			{
 				$this->routes['param'] = json_encode($param);
 			}
-		} else
+		}
+		else
 		{
 			$this->routes['param'] = "";
 		}

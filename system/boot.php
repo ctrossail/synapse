@@ -27,6 +27,11 @@ header("Charset: UTF-8");
 define('ISCLI', PHP_SAPI === 'cli');
 
 
+$_GET['path'] = urldecode($_GET['path']);
+
+
+
+
 if (!empty($_GET['path']))
 {
 	if (stristr($_GET['path'], "bbclone/"))
