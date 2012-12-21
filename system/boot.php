@@ -23,6 +23,7 @@
 header("Charset: UTF-8");
 
 
+
 //to know if we are in cli
 define('ISCLI', PHP_SAPI === 'cli');
 
@@ -124,7 +125,7 @@ $lg = explode(",", LANGUAGE_AVAILABLE);
 
 if (!in_array($_COOKIE['language'], $lg))
 {
-	die("language error !");
+	//die("language error !");
 	$_SESSION['URL_404'] = $_SERVER['QUERY_STRING'];
 	header("location: " . WWW_ROOT . "en/error/_404/");
 }
@@ -262,8 +263,8 @@ else
 	  $login->is_logged();
 	 */
 
-	$stat = new stats;
-	$stat->insert($GLOBALS['_SITE']['IdUser']);
+	//$stat = new stats;
+	//$stat->insert($GLOBALS['_SITE']['IdUser']);
 
 	$_SYSTEM['controller'] = $url['controller'];
 	$_SYSTEM['action'] = $url['action'];
@@ -278,21 +279,43 @@ else
 
 
 
+	/*
+		echo ">>>>WWWWWWWWWWWWWW<br />";
+		debug($GLOBALS['_SITE']);
+		debug($_SYSTEM['controller']);
+		debug($_SYSTEM['action']);
+		
+
+		debug($GLOBALS['_SYSTEM']['acl']);
+
+
+		
+		
+		echo "Problem right ! ";
+		//die();
+	
+	
 	// a mettre dans un class je pense ACL ?
+		
+		debug($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]);
+		die();
+	 * 
+	 * 
+	 */
+	
+	
+	
 	if (empty($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]))
 	{
-
-		/*
+		
 		echo ">>>>WWWWWWWWWWWWWW<br />";
 		debug($GLOBALS['_SITE']);
 		debug($_SYSTEM['controller']);
 		debug($GLOBALS['_SYSTEM']['acl']);
 
-
 		echo "Problem right ! ";
-		exit;
-		 * 
-		 */
+		die();
+	
 
 		//|| $GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']] != 1)
 		if ($_SYSTEM['controller'] !== "" && $_SYSTEM['action'] !== "")
@@ -330,14 +353,13 @@ $controller->get_controller();
 
 
 
-
-
 if (!$controller->layout_name)
 {
 	$controller->display();
 }
 else
 {
+	
 	$controller->set_layout();
 
 	$_DEBUG->save("Layout loaded");

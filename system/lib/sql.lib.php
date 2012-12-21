@@ -284,6 +284,7 @@ class sql {
 			{
 				$sql = "INSERT IGNORE INTO `" . $table . "` (`" . implode("`,`", $keys) . "`) VALUES ('" . implode("','", $data[$table]) . "') --";
 				$this->sql_query($sql, $table, "INSERT");
+
 			}
 
 			$this->last_id = $this->query[$this->number_of_query - 1]['last_id'];
@@ -299,10 +300,8 @@ class sql {
 					$sql .= " AND `" . $key . "` = '" . $value . "' ";
 				}
 
-
 				$res = $this->sql_query($sql, $table, "SELECT");
 				$tab = $this->sql_to_array($res);
-
 
 				if (!empty($tab[0]['id']))
 				{
@@ -314,7 +313,6 @@ class sql {
 			{
 				if (strstr($this->_table_to_history, $table))
 				{
-
 					if (!empty($before_update))
 					{
 						$param = history::compare($before_update[0], $data[$table]);
@@ -328,16 +326,14 @@ class sql {
 						$type_query = 'INSERT';
 					}
 
-
 					history::insert($table, $id_table, $param, $this->_history_type, $this->_history_user, $type_query);
 					$this->_history_type = HISTORY_TYPE;
 					$this->_history_user = null;
 
-
 					$this->last_id = $id_table;
 				}
 			}
-
+			
 			//return $this->query[$this->number_of_query-1]['last_id'];
 			return $this->sql_insert_id();
 		}

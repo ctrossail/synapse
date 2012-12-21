@@ -754,9 +754,12 @@ class validation extends sql
  * @access public
  */
 	function numeric($check) {
-		return is_numeric($check);
+		
+		//echo "-".$check['value']."-";
+		return is_numeric($check['value']);
+		//return ctype_digit($check['value']);
 	}
-
+	
 /**
  * Check that a value is a valid phone number.
  *
