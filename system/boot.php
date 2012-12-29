@@ -27,7 +27,7 @@ header("Charset: UTF-8");
 define('ISCLI', PHP_SAPI === 'cli');
 
 
-$_GET['path'] = urldecode($_GET['path']);
+
 
 
 
@@ -158,7 +158,7 @@ if (ISCLI)
 }
 else
 {  //mode with apache
-
+	$_GET['path'] = urldecode($_GET['path']);
 
 	/* remplacer par le code en dessous */
 
@@ -296,7 +296,7 @@ else
 
 	$_DEBUG->save("Layout loaded");
 
-	if (($GLOBALS['_SITE']['IdUser'] == 3 || ENVIRONEMENT) && (!ISCLI))
+	if ((($GLOBALS['_SITE']['IdUser'] == 3 || ENVIRONEMENT) && (!ISCLI)) && strstr($_GET['path'],'%3E'))
 	{//ENVIRONEMENT
 		$execution_time = microtime(true) - TIME_START;
 
