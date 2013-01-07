@@ -28,9 +28,9 @@ header("Charset: UTF-8");
 define('ISCLI', PHP_SAPI === 'cli');
 
 
-if (!empty($_GET['path']))
+if ( !empty($_GET['path']) )
 {
-	if (stristr($_GET['path'], "bbclone/"))
+	if ( stristr($_GET['path'], "bbclone/") )
 	{
 		exit;
 	}
@@ -88,7 +88,7 @@ $_SQL->sql_select_db(SQL_DATABASE);
 $_DEBUG->save("Connect to database");
 
 
-if (empty($_SERVER["argc"]))
+if ( empty($_SERVER["argc"]) )
 {
 	include CORE_PATH . 'router.php';
 
@@ -96,7 +96,7 @@ if (empty($_SERVER["argc"]))
 	$route->parse($_GET['path']);
 	$url = $route->get_routes();
 
-	if (isset($_GET['lg']))
+	if ( isset($_GET['lg']) )
 	{
 		$_COOKIE['language'] = $_GET['lg'];
 		SetCookie("language", $_GET['lg'], time() + 60 * 60 * 24 * 365, "/", $_SERVER['SERVER_NAME'], false, true);
@@ -116,14 +116,14 @@ $GLOBALS['_LG'] = Singleton::getInstance("Language");
 $_LG->SetDefault("en");
 $_LG->SetSavePath(TMP . "translations");
 
-if (empty($_COOKIE['language']))
+if ( empty($_COOKIE['language']) )
 {
 	$_COOKIE['language'] = "en";
 }
 
 $lg = explode(",", LANGUAGE_AVAILABLE);
 
-if (!in_array($_COOKIE['language'], $lg))
+if ( !in_array($_COOKIE['language'], $lg) )
 {
 	//die("language error !");
 	$_SESSION['URL_404'] = $_SERVER['QUERY_STRING'];
@@ -136,59 +136,59 @@ $_DEBUG->save("Language loaded");
 
 
 //mode with php-cli
-if (ISCLI)
+if ( ISCLI )
 {
-	
+
 	/*
-	echo "/".str_repeat("_", 78) ."\n";
-	echo "|######## GLIAL FRAMEWORK #########\n";
-	echo "\\".str_repeat("_", 78) ."\n";
-	
-	
-	echo "                            .                                                   
-                      `.`    -        `                    ``                   
-                ``.     --  `:.`    `.`                   ..                    
-`.....`           `-`   `+` :`--  `-.              `    `-`                     
-     `.--.`        `:    /::-`/. .:`       `.      `.-. :.                      
-         `--`       --   `/::/- .:          `-        :--`-                     
-           `::`     `/.   `://  /.   `       `-      :-.:`:                     
-             `:-`    ./.   +-- `+----.`       .-    -:  //-                     
-               .::-.  `/:. ::::::-`            /    :/  -:-         `           
-                 `.-//::+/:.:/--:              :.   `/:`/+/`        .-          
-                      `..-:://:-:-             :-    //+:-/-        --          
-                            `--:-::`           ::    ::o:o/`    `.-:.           
-                                .:-::.          /:`  ::y-/- `-::-.```````       
-                                  .---:-.        -/:-`+:-: :/---:--.``````      
-                                    .:---::-.      -:/+-/.:+:/-`                
-                                      :------::--..--/--/://-                   
-                                      ------/:/:-------/-..------.``            
-                                      :----oooooo:---/-::-.`      `....`        
-                   ``         `.---/o/-----/oooos/---/:.               ```      
-                     `......--:////::-...-:--://:---://+:-.....`                
-                           `-//+//-`      --------:.``..://:---:::-.            
-                     `.`  ./::--/.        .:-:/:-/         ```..----::.`        
-                       --:/:.`-:          :--: /-/                 ....-:.      
-                     ``...` `:/-          /-/  /::`` ```             `.` .--`   
-                           `:.:-          /-:  ::/-:--..--.`               `-.` 
-                          `:`--           ::. ./++-        ..                 ``
-                         .-  -.           :/- /`:::-         .                  
-                        ``   `.          .:-/`: -: ::                           
-                              `         .-  -::  :- -:                          
-                                        -    `:-``/- .:                         
-                                       `.     .-:``:- .:`                       
-                                       `       . :  -:` -.`                     
-                                                 `-  .:`  .`                    
-                                                      `:.                       
-                                                        -:`                     
-                                                         .:`                    
-                                                          `:.                   
-                                                            -.                  
-                                                             -.                 \n";
-	
-	*/
-	
-	
-	if ($_SERVER["argc"] >= 3)
+	  echo "/".str_repeat("_", 78) ."\n";
+	  echo "|######## GLIAL FRAMEWORK #########\n";
+	  echo "\\".str_repeat("_", 78) ."\n";
+
+
+	  echo "                            .
+	  `.`    -        `                    ``
+	  ``.     --  `:.`    `.`                   ..
+	  `.....`           `-`   `+` :`--  `-.              `    `-`
+	  `.--.`        `:    /::-`/. .:`       `.      `.-. :.
+	  `--`       --   `/::/- .:          `-        :--`-
+	  `::`     `/.   `://  /.   `       `-      :-.:`:
+	  `:-`    ./.   +-- `+----.`       .-    -:  //-
+	  .::-.  `/:. ::::::-`            /    :/  -:-         `
+	  `.-//::+/:.:/--:              :.   `/:`/+/`        .-
+	  `..-:://:-:-             :-    //+:-/-        --
+	  `--:-::`           ::    ::o:o/`    `.-:.
+	  .:-::.          /:`  ::y-/- `-::-.```````
+	  .---:-.        -/:-`+:-: :/---:--.``````
+	  .:---::-.      -:/+-/.:+:/-`
+	  :------::--..--/--/://-
+	  ------/:/:-------/-..------.``
+	  :----oooooo:---/-::-.`      `....`
+	  ``         `.---/o/-----/oooos/---/:.               ```
+	  `......--:////::-...-:--://:---://+:-.....`
+	  `-//+//-`      --------:.``..://:---:::-.
+	  `.`  ./::--/.        .:-:/:-/         ```..----::.`
+	  --:/:.`-:          :--: /-/                 ....-:.
+	  ``...` `:/-          /-/  /::`` ```             `.` .--`
+	  `:.:-          /-:  ::/-:--..--.`               `-.`
+	  `:`--           ::. ./++-        ..                 ``
+	  .-  -.           :/- /`:::-         .
+	  ``   `.          .:-/`: -: ::
+	  `         .-  -::  :- -:
+	  -    `:-``/- .:
+	  `.     .-:``:- .:`
+	  `       . :  -:` -.`
+	  `-  .:`  .`
+	  `:.
+	  -:`
+	  .:`
+	  `:.
+	  -.
+	  -.                 \n";
+
+	 */
+
+
+	if ( $_SERVER["argc"] >= 3 )
 	{
 		$_SYSTEM['controller'] = $_SERVER["argv"][1];
 		$_SYSTEM['action'] = $_SERVER["argv"][2];
@@ -200,11 +200,10 @@ if (ISCLI)
 		echo "Usage :\n";
 		echo "php index.php controlleur action [params]\n";
 		die();
-	} 
+	}
 }
 else
 {  //mode with apache
-
 	define('LINK', WWW_ROOT . $_LG->Get() . "/");
 
 	/* remplacer par le code en dessous */
@@ -212,18 +211,18 @@ else
 	$GLOBALS['_SITE']['IdUser'] = -1;
 	$GLOBALS['_SITE']['id_group'] = 1;
 
-	if (!empty($_COOKIE['IdUser']) && !empty($_COOKIE['Passwd']))
+	if ( !empty($_COOKIE['IdUser']) && !empty($_COOKIE['Passwd']) )
 	{
 		$sql = "select * from user_main where id = '" . $_SQL->sql_real_escape_string($_COOKIE['IdUser']) . "'";
 
 		$res = $_SQL->sql_query($sql);
 
-		if ($_SQL->sql_num_rows($res) === 1)
+		if ( $_SQL->sql_num_rows($res) === 1 )
 		{
 			$ob = $_SQL->sql_fetch_object($res);
 
 			//empeche le volage de session
-			if (sha1($ob->password . $_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']) === $_COOKIE['Passwd'])
+			if ( sha1($ob->password . $_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']) === $_COOKIE['Passwd'] )
 			{
 				$GLOBALS['_SITE']['IdUser'] = $_COOKIE['IdUser'];
 				$GLOBALS['_SITE']['Name'] = $ob->name;
@@ -233,10 +232,10 @@ else
 				$sql = "UPDATE user_main SET date_last_connected = now() where id=" . $_SQL->sql_real_escape_string($_SITE['IdUser']);
 				$_SQL->sql_query($sql);
 
-				if ($ob->is_valid == 0)
+				if ( $ob->is_valid == 0 )
 				{
 
-					if ($_SERVER['REQUEST_METHOD'] === "GET")
+					if ( $_SERVER['REQUEST_METHOD'] === "GET" )
 					{
 						$msg = $GLOBALS['_LG']->getTranslation(__("Hello,") . "<br />" . __("Thank you for registering.") . "<br />"
 							. __("To finalise your registration, please check your email and click on the confirmation. Once you've done this, your registration will be complete."));
@@ -280,47 +279,45 @@ else
 
 
 	/*
-		echo ">>>>WWWWWWWWWWWWWW<br />";
-		debug($GLOBALS['_SITE']);
-		debug($_SYSTEM['controller']);
-		debug($_SYSTEM['action']);
-		
-
-		debug($GLOBALS['_SYSTEM']['acl']);
+	  echo ">>>>WWWWWWWWWWWWWW<br />";
+	  debug($GLOBALS['_SITE']);
+	  debug($_SYSTEM['controller']);
+	  debug($_SYSTEM['action']);
 
 
-		
-		
-		echo "Problem right ! ";
-		//die();
-	
-	
-	// a mettre dans un class je pense ACL ?
-		
-		debug($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]);
-		die();
+	  debug($GLOBALS['_SYSTEM']['acl']);
+
+
+
+
+	  echo "Problem right ! ";
+	  //die();
+
+
+	  // a mettre dans un class je pense ACL ?
+
+	  debug($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]);
+	  die();
 	 * 
 	 * 
 	 */
-	
-	
-	
-	if (empty($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]))
+
+
+
+	if ( empty($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]) )
 	{
-		
+
 		echo ">>>>WWWWWWWWWWWWWW<br />";
 		debug($GLOBALS['_SITE']);
 		debug($_SYSTEM['controller']);
 		debug($GLOBALS['_SYSTEM']['acl']);
 
 		echo "Problem right ! ";
-		die();
-	
-
+		//	die();
 		//|| $GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']] != 1)
-		if ($_SYSTEM['controller'] !== "" && $_SYSTEM['action'] !== "")
+		if ( $_SYSTEM['controller'] !== "" && $_SYSTEM['action'] !== "" )
 		{
-			if ($GLOBALS['_SITE']['id_group'] == 1)
+			if ( $GLOBALS['_SITE']['id_group'] == 1 )
 			{
 
 				$url = "user/register/";
@@ -353,18 +350,18 @@ $controller->get_controller();
 
 
 
-if (!$controller->layout_name)
+if ( !$controller->layout_name )
 {
 	$controller->display();
 }
 else
 {
-	
+
 	$controller->set_layout();
 
 	$_DEBUG->save("Layout loaded");
 
-	if (($GLOBALS['_SITE']['IdUser'] == 3 || ENVIRONEMENT) && (!ISCLI))
+	if ( ($GLOBALS['_SITE']['IdUser'] == 3 || ENVIRONEMENT) && (!ISCLI) )
 	{//ENVIRONEMENT
 		$execution_time = microtime(true) - TIME_START;
 
@@ -372,14 +369,14 @@ else
 		echo "Temps d'exéution de la page : " . round($execution_time, 5) . " seconds";
 		echo "<br />Nombre de requette : " . $_SQL->get_count_query();
 
-		if ($_SQL->get_count_query() != 0)
+		if ( $_SQL->get_count_query() != 0 )
 		{
 			echo "<table class=\"debug\">";
 			echo "<tr><th>#</th><th>File</th><th>Line</th><th>Query</th><th>Rows</th><th>Last inserted id</th><th>Time</th></tr>";
 			$i = 0;
 			$j = 0;
 			$k = 0;
-			foreach ($_SQL->query as $value)
+			foreach ( $_SQL->query as $value )
 			{
 				echo "<tr><td>" . $k . "</td><td>" . $value['file'] . "</td><td>" . $value['line'] . "</td><td>" . $value['query'] . "</td><td>" . $value['rows'] . "</td><td>" . $value['last_id'] . "</td><td>" . $value['time'] . "</td></tr>";
 				$i += $value['time'];
@@ -413,19 +410,22 @@ else
 
 
 		echo "CONSTANTES : <br />";
-		echo "<b>ROOT :</b> " . ROOT . "<br/>";
-		echo "<b>TMP :</b> " . TMP . "<br/>";
-		echo "<b>DATA :</b> " . DATA . "<br/>";
-		echo "<b>APP_DIR :</b> " . APP_DIR . "<br/>";
-		echo "<b>CONFIG :</b> " . CONFIG . "<br/>";
-		echo "<b>CORE_PATH :</b> " . CORE_PATH . "<br/>";
-		echo "<b>WEBROOT_DIR :</b> " . WEBROOT_DIR . "<br/>";
-		echo "<b>WWW_ROOT :</b> " . WWW_ROOT . "<br/>";
-		echo "<b>IMG :</b> " . IMG . "<br/>";
-		echo "<b>CSS :</b> " . CSS . "<br/>";
-		echo "<b>FILE :</b> " . FILE . "<br/>";
-		echo "<b>VIDEO :</b> " . VIDEO . "<br/>";
-		echo "<b>JS :</b> " . JS . "<br/>";
-		echo "<b>LIBRARY :</b> " . LIBRARY . "<br/>";
+
+
+		$display = false;
+		$constantes = get_defined_constants();
+		foreach ( $constantes as $constante => $valeur )
+		{
+			if ( $constante == "TIME_START" )
+			{
+				$display = true;
+			}
+
+			if ( $display )
+			{
+				echo 'Constante: <b>' . $constante . '</b> Valeur: ' . $valeur . '<br/>';
+			}
+		}
+
 	}
 }
