@@ -107,6 +107,11 @@ class mysql extends sql {
 		}
 	}
 	
+	
+	function sql_fetch_field($res, $field_offset=0)
+	{
+		return mysql_fetch_field($res, $field_offset );
+	}
+	
 }
 
-?>
