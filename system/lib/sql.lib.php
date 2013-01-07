@@ -63,6 +63,8 @@ class sql {
 	function sql_free_result($result) {
 
 	}
+	
+	
 
 	function _insert_id() {
 		
@@ -410,6 +412,14 @@ class sql {
 			}
 		}
 	}
+	
+	
+	function sql_fetch_field($res, $field_offset=0)
+	{
+		
+	}
+	
+
 
 }
 
