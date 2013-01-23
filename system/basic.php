@@ -103,6 +103,12 @@ function get_flash()
 
 function input($table, $field, $classo="")
 {
+	if (  strstr($table))
+	{
+		echo " [$table][$field]";
+	}
+	
+	
 	if ( ! empty($_GET[$table][$field]) )
 	{
 		$value = $_GET[$table][$field];

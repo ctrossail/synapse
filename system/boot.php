@@ -302,17 +302,19 @@ else
 	 * 
 	 */
 
-
-
 	if ( empty($GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']]) )
 	{
 
+		/*
 		echo ">>>>WWWWWWWWWWWWWW<br />";
 		debug($GLOBALS['_SITE']);
 		debug($_SYSTEM['controller']);
 		debug($GLOBALS['_SYSTEM']['acl']);
 
 		echo "Problem right ! ";
+		*/
+		
+		
 		//	die();
 		//|| $GLOBALS['_SYSTEM']['acl'][$GLOBALS['_SITE']['id_group']][$_SYSTEM['controller']][$_SYSTEM['action']] != 1)
 		if ( $_SYSTEM['controller'] !== "" && $_SYSTEM['action'] !== "" )
