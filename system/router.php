@@ -10,7 +10,7 @@ if ( empty($_GET['path']) )
 
 
 
-	if ( empty($_COOKIE['language']) )
+	if ( empty($_SESSION['language']) )
 	{
 		if ( !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) )
 		{
@@ -19,16 +19,16 @@ if ( empty($_GET['path']) )
 			$lgnew = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 			if ( in_array($lgnew, $_LG_choice) )
 			{
-				$_COOKIE['language'] = $lgnew;
+				$_SESSION['language'] = $lgnew;
 			}
 			else
 			{
-				$_COOKIE['language'] = "en";
+				$_SESSION['language'] = "en";
 			}
 		}
 		else
 		{
-			$_COOKIE['language'] = "en";
+			$_SESSION['language'] = "en";
 		}
 	}
 
@@ -36,7 +36,7 @@ if ( empty($_GET['path']) )
 	//echo WWW_ROOT.$_COOKIE['language']."/home/";die();
 	header("HTTP/1.1 301 Moved Permanently");
 	header("Status: 301 Moved Permanently", false, 301);
-	header("Location: " . WWW_ROOT . $_COOKIE['language'] . "/home/");
+	header("Location: " . WWW_ROOT . $_SESSION['language'] . "/home/");
 	exit;
 }
 

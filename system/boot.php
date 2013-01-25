@@ -98,8 +98,9 @@ if ( empty($_SERVER["argc"]) )
 
 	if ( isset($_GET['lg']) )
 	{
-		$_COOKIE['language'] = $_GET['lg'];
-		SetCookie("language", $_GET['lg'], time() + 60 * 60 * 24 * 365, "/", $_SERVER['SERVER_NAME'], false, true);
+		$_SESSION['language'] = $_GET['lg'];
+		//SetCookie("language", $_GET['lg'], time() + 60 * 60 * 24 * 365, "/", $_SERVER['SERVER_NAME'], false, true);
+		//SetCookie("language", $_GET['lg'], time() + 60 * 60 * 24 * 365, "/");
 	}
 }
 
@@ -116,14 +117,14 @@ $GLOBALS['_LG'] = Singleton::getInstance("Language");
 $_LG->SetDefault("en");
 $_LG->SetSavePath(TMP . "translations");
 
-if ( empty($_COOKIE['language']) )
+if ( empty($_SESSION['language']) )
 {
-	$_COOKIE['language'] = "en";
+	$_SESSION['language'] = "en";
 }
 
 $lg = explode(",", LANGUAGE_AVAILABLE);
 
-if ( !in_array($_COOKIE['language'], $lg) )
+if ( !in_array($_SESSION['language'], $lg) )
 {
 	//die("language error !");
 	$_SESSION['URL_404'] = $_SERVER['QUERY_STRING'];
@@ -131,7 +132,7 @@ if ( !in_array($_COOKIE['language'], $lg) )
 }
 
 
-$_LG->load($_COOKIE['language']);
+$_LG->load($_SESSION['language']);
 $_DEBUG->save("Language loaded");
 
 
